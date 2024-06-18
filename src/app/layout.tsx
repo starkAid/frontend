@@ -7,7 +7,7 @@ import { StarknetProvider } from "@/provider/starknet-provider";
 const fontSans = FontSans({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
+  variable: "--font-sans",
 })
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn(
-        "min-h-screen w-full font-poppins antialiased bg-white",
+        "min-h-screen w-full font-sans antialiased bg-white",
         fontSans.variable
       )}>
         <StarknetProvider>{children}</StarknetProvider>

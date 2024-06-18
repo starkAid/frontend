@@ -1,3 +1,7 @@
+import Footer from "@/components/shared/Footer";
+import Header from "@/components/shared/Header";
+import MaxWrapper from "@/components/shared/MaxWrapper";
+import TopHeader from "@/components/shared/TopHeader";
 
 
 export default function GuestLayout({
@@ -6,10 +10,11 @@ export default function GuestLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <section className="w-full">
-
+        <MaxWrapper>
+            <TopHeader />
+            <Header />
             <main className="w-full">{children}</main>
-
-        </section>
+            <Footer />
+        </MaxWrapper>
     );
 }
