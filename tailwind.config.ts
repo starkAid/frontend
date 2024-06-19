@@ -20,9 +20,12 @@ const config = {
     },
     extend: {
       fontFamily: {
-        poppins: ["var(--font-poppins)", ...fontFamily.poppins],
+        sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       colors: {
+        saBlue: "#121E31",
+        saBluelite: "#24245C",
+        saOrange: "#FF7468",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
