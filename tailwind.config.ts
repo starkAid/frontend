@@ -24,6 +24,8 @@ const config = {
       },
       colors: {
         saBlue: "#121E31",
+        saBluelite: "#24245C",
+        saOrange: "#FF7468",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
