@@ -1,5 +1,5 @@
 import { MdOutlineArrowRightAlt } from "react-icons/md"
-import { starknet, tokenflow, voyager } from "../../../public/partners"
+import { starknet, tokenflow, voyager, dynamic } from "../../../public/partners"
 import Image from "next/image"
 import { useMemo } from "react";
 import box from "../../../public/donation-box.png"
@@ -7,7 +7,7 @@ import guage from "../../../public/gauge.png"
 import dots from "../../../public/circleElements.png"
 
 const HeroSection = () => {
-    const partners = useMemo(() => [starknet, tokenflow, voyager], []);
+    const partners = useMemo(() => [starknet, tokenflow, voyager, dynamic], []);
 
     return (
         <section className="w-full h-auto md:h-[600px] overflow-x-hidden lg:h-[600px] lg:px-12 md:px-8 px-4 flex md:flex-row flex-col lg:gap-10 md:gap-4 gap-6 items-center justify-center">
