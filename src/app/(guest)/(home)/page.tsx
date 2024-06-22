@@ -15,11 +15,10 @@ export default function Home() {
       <CategoriesSection />
       <TeamSection />
       <ImpactSection />
+        <RecentProjects />
       <PartnershipSection />
         <Testimonial15 />
         <Stats />
-
-      <RecentProjects />
     </main>
   );
 }
