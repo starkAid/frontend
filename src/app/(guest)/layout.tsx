@@ -1,6 +1,7 @@
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import MaxWrapper from "@/components/shared/MaxWrapper";
+import ScrollToTopButton from "@/components/shared/ScrollToTopButton";
 import TopHeader from "@/components/shared/TopHeader";
 
 
@@ -14,6 +15,7 @@ export default function GuestLayout({
             <TopHeader />
             <Header />
             <main className="w-full">{children}</main>
+            <ScrollToTopButton />
             <Footer />
         </MaxWrapper>
     );
