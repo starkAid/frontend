@@ -168,6 +168,7 @@
 
 .storybox{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
@@ -181,6 +182,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+}
+
+@media screen and (max-width: 500px) {
+
+  .about-impact{
+    display: grid;
+    grid-template-columns: 1fr;}
 }
 
 .about-impact-img img{
@@ -239,6 +247,34 @@
   width: 15%;
 }
 
+/*STATS SECTION */
+
+.stats{
+  background-image: url("https://iili.io/ddn4YqF.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around; /* align horizontal */
+  align-items: center; /* align vertical */
+  height: 200px;
+}
+
+.stats{
+  color: #fff;
+  font-size: 35px;
+  font-weight: bolder;
+}
+
+.stats span{
+  display: block;
+  font-size: 10px !important;
+  font-weight: bold;
+}
 
 
 
@@ -288,6 +324,10 @@
 
 .u-class-mb-10{
   margin-bottom: 10px;
+}
+
+.u-class-dark-blue{
+  background: #1d1d4a !important;
 }
 
 /* UTILITY CLASSES END */
