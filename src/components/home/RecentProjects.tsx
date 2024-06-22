@@ -36,7 +36,7 @@ export const ProjectLists = ({ data }: { data: listTypes[] }) => {
 
 const ProjectCard = ({ image, category, title, progress, totalraised, daysleft, userImage, username, stars, campaignCount, city, country }: listTypes) => {
     return (
-        <div className="flex flex-col rounded-lg bg-gray-50 overflow-hidden border border-gray-300/50 group cursor-pointer">
+        <div className="flex flex-col rounded-lg bg-[#f9fafa] overflow-hidden border border-gray-300/50 group cursor-pointer">
             <div className="w-full h-36 overflow-hidden">
                 <Image src={image} alt="project" width={526} height={96} quality={100} priority className="w-full h-full object-cover group-hover:scale-125 duration-300 transition-all" />
             </div>

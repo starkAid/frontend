@@ -10,8 +10,8 @@ import { listOfProjects } from "@/data/Projects"
 
 const ProjectsDisplay = () => {
     return (
-        <main className="w-full flex flex-col md:px-20 px-4 my-32">
-            <section className="w-full flex justify-between items-center">
+        <main className="w-full flex flex-col md:px-20 px-4 md:my-32 my-20">
+            <section className="w-full flex flex-col md:flex-row md:justify-between md:items-center items-start gap-4 md:gap-0">
                 <div className="flex items-center gap-2">
                     <button className="text-gray-200 hover:bg-saOrange rounded-md bg-saBluelite font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
                         All Projects
@@ -40,6 +40,7 @@ const ProjectsDisplay = () => {
             <section className="w-full my-12">
                 <ProjectLists data={listOfProjects} />
             </section>
+
 
         </main>
     )
