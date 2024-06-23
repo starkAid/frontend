@@ -2,11 +2,11 @@ import HeroSection from "@/components/home/HeroSection";
 import CategoriesSection from "@/components/home/CategoriesSection";
 import TeamSection from "@/components/home/TeamSection";
 import ImpactSection from "@/components/home/ImpactSection";
-import PartnershipSection from "@/components/home/PartnershipSection";
 import Testimonial15 from "@/components/home/Testimonial15";
 import Stats from "@/components/home/Stats";
-import Footer from "@/components/shared/Footer";
 import RecentProjects from "@/components/home/RecentProjects";
+import Partnership from "@/components/shared/Partnership";
+import Newsletter from "@/components/shared/Newsletter";
 
 export default function Home() {
   return (
@@ -15,10 +15,11 @@ export default function Home() {
       <CategoriesSection />
       <TeamSection />
       <ImpactSection />
-        <RecentProjects />
-      <PartnershipSection />
-        <Testimonial15 />
-        <Stats />
+      <RecentProjects />
+      <Partnership />
+      <Testimonial15 />
+      <Stats />
+      <Newsletter />
     </main>
   );
 }

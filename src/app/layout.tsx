@@ -3,6 +3,8 @@ import "@/styles/globals.css"
 import { Poppins as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { StarknetProvider } from "@/provider/starknet-provider";
+import { Toaster } from "sonner";
+
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,7 +28,10 @@ export default function RootLayout({
         "min-h-screen w-full font-sans antialiased bg-white",
         fontSans.variable
       )}>
-        <StarknetProvider>{children}</StarknetProvider>
+        <StarknetProvider>
+          <Toaster richColors />
+          {children}
+        </StarknetProvider>
       </body>
     </html>
   );

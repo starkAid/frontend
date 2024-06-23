@@ -1,3 +1,4 @@
+'use client'
 import { MdOutlineArrowRightAlt } from "react-icons/md"
 import { starknet, tokenflow, voyager, dynamic } from "../../../public/partners"
 import Image from "next/image"
@@ -5,9 +6,26 @@ import { useMemo } from "react";
 import box from "../../../public/donation-box.png"
 import guage from "../../../public/gauge.png"
 import dots from "../../../public/circleElements.png"
+import { useRouter } from "next/navigation";
+import { useAccount } from "@starknet-react/core";
+import { toast } from "sonner";
 
 const HeroSection = () => {
     const partners = useMemo(() => [starknet, tokenflow, voyager, dynamic], []);
+
+    const router = useRouter();
+
+    const { address: userAddress } = useAccount();
+
+    const handleClick = () => {
+        if (userAddress) {
+            router.push("/createcampaign")
+        } else {
+            toast.error("Please connect your wallet", {
+                position: "top-right",
+            })
+        }
+    }
 
     return (
         <section className="w-full h-auto md:h-[600px] overflow-x-hidden lg:h-[600px] lg:px-12 md:px-8 px-4 flex md:flex-row flex-col lg:gap-10 md:gap-4 gap-6 items-center justify-center">
@@ -18,11 +36,11 @@ const HeroSection = () => {
                 <p className="text-sm my-2 text-gray-700">Join our dedicated platform in transforming how we support vital causes. Our crowdfunding application on <strong className="text-saBluelite">Starknet</strong> connects you directly with the most pressing scientific research initiatives and disaster relief efforts. By leveraging blockchain technology, we ensure that every contribution you make is transparent, secure, and impactful. Whether you’re a donor, a researcher, or an NGO, become a part of a community that is driving real change where it’s needed most.</p>
 
                 <div className="flex gap-4">
-                    <button className="text-gray-200 bg-saOrange rounded-md hover:bg-saBluelite font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
-                        Learn more
+                    <button onClick={handleClick} className="text-gray-200 bg-saOrange rounded-md hover:bg-saBluelite font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
+                        Create campaign
                         <MdOutlineArrowRightAlt className="text-xl" />
                     </button>
-                    <button className="text-gray-700 bg-gray-200 rounded-md border border-gray-300 font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
+                    <button onClick={() => router.push("/projects")} className="text-gray-700 bg-gray-200 rounded-md border border-gray-300 font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
                         Donate
                     </button>
                 </div>

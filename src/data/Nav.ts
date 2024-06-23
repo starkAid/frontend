@@ -21,3 +21,41 @@ export const Navlinks: NavTypes[] = [
     name: "Contact",
   },
 ];
+
+export const Resources: NavTypes[] = [
+  {
+    href: "/",
+    name: "Help center",
+  },
+  {
+    href: "/",
+    name: "Partners",
+  },
+  {
+    href: "/",
+    name: "Guides",
+  },
+  {
+    href: "/",
+    name: "Events",
+  },
+];
+
+export const Company: NavTypes[] = [
+  {
+    href: "/",
+    name: "Privacy Policy",
+  },
+  {
+    href: "/",
+    name: "Terms & Conditions",
+  },
+  {
+    href: "/",
+    name: "FAQs",
+  },
+  {
+    href: "/",
+    name: "Apply",
+  },
+];

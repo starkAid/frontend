@@ -1,129 +1,131 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
-  @layer base {
-    :root {
-      --background: 0 0% 100%;
-      --foreground: 222.2 84% 4.9%;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-      --card: 0 0% 100%;
-      --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-      --primary: 222.2 47.4% 11.2%;
-      --primary-foreground: 210 40% 98%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-      --secondary: 210 40% 96.1%;
-      --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-      --muted: 210 40% 96.1%;
-      --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-      --accent: 210 40% 96.1%;
-      --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-      --destructive: 0 84.2% 60.2%;
-      --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-      --border: 214.3 31.8% 91.4%;
-      --input: 214.3 31.8% 91.4%;
-      --ring: 222.2 84% 4.9%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
-      --radius: 0.5rem;
-    }
-
-    .dark {
-      --background: 222.2 84% 4.9%;
-      --foreground: 210 40% 98%;
-
-      --card: 222.2 84% 4.9%;
-      --card-foreground: 210 40% 98%;
-
-      --popover: 222.2 84% 4.9%;
-      --popover-foreground: 210 40% 98%;
-
-      --primary: 210 40% 98%;
-      --primary-foreground: 222.2 47.4% 11.2%;
-
-      --secondary: 217.2 32.6% 17.5%;
-      --secondary-foreground: 210 40% 98%;
-
-      --muted: 217.2 32.6% 17.5%;
-      --muted-foreground: 215 20.2% 65.1%;
-
-      --accent: 217.2 32.6% 17.5%;
-      --accent-foreground: 210 40% 98%;
-
-      --destructive: 0 62.8% 30.6%;
-      --destructive-foreground: 210 40% 98%;
-
-      --border: 217.2 32.6% 17.5%;
-      --input: 217.2 32.6% 17.5%;
-      --ring: 212.7 26.8% 83.9%;
-    }
+    --radius: 0.5rem;
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
 
 /* TIMOTHY'S CUSTOM UI STYLING */
 /* CATEGORIES SECTION*/
-*::-webkit-scrollbar{
- display: none !important;
+*::-webkit-scrollbar {
+  display: none !important;
 }
 
-.ui-gradient-bg{
+.ui-gradient-bg {
   background-image: url("https://i.postimg.cc/jdkPgfy9/gradient-bg.png");
   background-size: cover;
   background-position: left;
   text-align: center;
 }
 
-.u-class-half{
+.u-class-half {
   width: 50%;
   margin: 5% auto;
 }
 
 @media screen and (max-width: 500px) {
-  .u-class-half{
+  .u-class-half {
     width: 100%;
   }
 }
 
-.ui-section-name{
+.ui-section-name {
   display: block;
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 30px;
 }
 
-.ui-section-header{
+.ui-section-header {
   margin-bottom: 20px;
 }
 
-.ui-section-paragraph{
+.ui-section-paragraph {
   margin-bottom: 100px;
 }
 
-.ui-card-grid{
+.ui-card-grid {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; /* Allows the items to wrap to the next line */
+  flex-wrap: wrap;
+  /* Allows the items to wrap to the next line */
   gap: 30px;
 }
 
-.ui-card{
+.ui-card {
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 20px;
@@ -132,53 +134,53 @@
   transition: 3s ease-in;
 }
 
-.ui-card:hover{
+.ui-card:hover {
   transform: scale(1.1);
   cursor: pointer;
 }
 
-.ui-card-icon img{
+.ui-card-icon img {
   width: 50px;
   margin: auto;
   margin-bottom: 10px;
 }
 
-.ui-team-grid{
-    display: flex;
+.ui-team-grid {
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   gap: 20px;
   text-align: center;
 }
 
-.ui-team-img img{
-  width: 250px;
-  border-radius: 5px;
+.ui-team-img img {
+  width: 300px;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
-.ui-no-scroll{
+.ui-no-scroll {
   height: fit-content !important;
 }
 
-.ui-no-scroll > *{
+.ui-no-scroll>* {
   text-align: center;
 }
 
-.storybox{
+.storybox {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 
-.storybox-text{
+.storybox-text {
   width: 50%;
   text-align: left;
 }
 
-.about-impact{
+.about-impact {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
@@ -186,19 +188,20 @@
 
 @media screen and (max-width: 500px) {
 
-  .about-impact{
+  .about-impact {
     display: grid;
-    grid-template-columns: 1fr;}
+    grid-template-columns: 1fr;
+  }
 }
 
-.about-impact-img img{
+.about-impact-img img {
   /* width: ; */
 }
 
 
 /* UserInfo Styling Start */
 
-.UserInfo{
+.UserInfo {
   border-radius: 5px;
   /*box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;*/
   width: fit-content;
@@ -208,7 +211,7 @@
   gap: 5px;
 }
 
-.user-info{
+.user-info {
   margin: auto;
 }
 
@@ -224,32 +227,33 @@
   height: auto;
 }
 
-.tiny{
+.tiny {
   font-size: 10px;
 }
 
-.small{
+.small {
   font-size: 10px;
   font-weight: bold;
 }
 
 /* UserInfo Styling End */
 
-.partner-grid{
-   display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 50px;
-    flex-wrap: wrap; /* Allows the items to wrap to the next line */
+.partner-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  /* Allows the items to wrap to the next line */
 }
 
-.partner-grid > img{
+.partner-grid>img {
   width: 15%;
 }
 
 /*STATS SECTION */
 
-.stats{
+.stats {
   background-image: url("https://iili.io/ddn4YqF.png");
   background-size: cover;
   background-position: center;
@@ -259,18 +263,20 @@
 
 .stats-grid {
   display: flex;
-  justify-content: space-around; /* align horizontal */
-  align-items: center; /* align vertical */
+  justify-content: space-around;
+  /* align horizontal */
+  align-items: center;
+  /* align vertical */
   height: 200px;
 }
 
-.stats{
+.stats {
   color: #fff;
   font-size: 35px;
   font-weight: bolder;
 }
 
-.stats span{
+.stats span {
   display: block;
   font-size: 10px !important;
   font-weight: bold;
@@ -280,54 +286,64 @@
 
 /* UTILITY CLASSES START */
 
-.u-class-fit-content{
+.u-class-fit-content {
   height: fit-content !important;
 }
 
-.u-class-left-align{
+.u-class-left-align {
   text-align: left !important;
 }
 
-.u-class-right-align{
+.u-class-right-align {
   text-align: right !important;
 }
 
-.u-class-mt-100{
+.u-class-mt-100 {
   margin-top: 100px;
 }
 
-.u-class-mt-50{
+.u-class-mt-50 {
   margin-top: 50px;
 }
 
-.u-class-mt-20{
+.u-class-mt-20 {
   margin-top: 20px;
 }
 
-.u-class-mt-10{
+.u-class-mt-10 {
   margin-top: 10px;
 }
 
 
-.u-class-mb-100{
+.u-class-mb-100 {
   margin-bottom: 100px;
 }
 
 
-.u-class-mb-50{
+.u-class-mb-50 {
   margin-bottom: 50px;
 }
 
-.u-class-mb-20{
+.u-class-mb-20 {
   margin-bottom: 20px;
 }
 
-.u-class-mb-10{
+.u-class-mb-10 {
   margin-bottom: 10px;
 }
 
-.u-class-dark-blue{
+.u-class-dark-blue {
   background: #1d1d4a !important;
 }
 
 /* UTILITY CLASSES END */
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number].number-to-text {
+  -moz-appearance: textfield;
+}
