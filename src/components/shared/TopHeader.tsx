@@ -1,19 +1,34 @@
 'use client'
+import { useAccount } from "@starknet-react/core";
 import Link from "next/link"
 import { useRouter } from "next/navigation";
 import { IoIosLogIn, IoIosMail } from "react-icons/io"
+import { toast } from "sonner";
 
 
 
 const TopHeader = () => {
     const router = useRouter();
+    const { address: userAddress } = useAccount();
 
     const handleClick = () => {
-        router.push("/createcampaign")
+        if (userAddress) {
+            router.push("/createcampaign")
+        } else {
+            toast.error("Please connect your wallet", {
+                position: "top-right",
+            })
+        }
     }
 
     const handleApply = () => {
-        router.push("/applyasvalidator")
+        if (userAddress) {
+            router.push("/applyasvalidator")
+        } else {
+            toast.error("Please connect your wallet", {
+                position: "top-right",
+            })
+        }
     }
     return (
         <div className="w-full bg-white border-b border-gray-200 hidden md:flex justify-between items-center py-3 lg:px-12 md:px-8">
