@@ -1,5 +1,5 @@
 'use client'
-import React, { FormEvent, useState } from 'react'
+import React from 'react'
 import Logo from '../shared/Logo'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useRouter } from 'next/navigation'
@@ -8,9 +8,6 @@ import { useRouter } from 'next/navigation'
 const MakeValidator = () => {
 
     const router = useRouter()
-
-
-
 
     const handleGoBack = () => {
         router.push("/")
