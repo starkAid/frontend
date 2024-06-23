@@ -97,16 +97,16 @@ export const registerABI = [
       },
       {
         type: "function",
-        name: "is_authenticated",
+        name: "get_user_id",
         inputs: [
           {
-            name: "user_address",
+            name: "address",
             type: "core::starknet::contract_address::ContractAddress",
           },
         ],
         outputs: [
           {
-            type: "core::bool",
+            type: "core::integer::u32",
           },
         ],
         state_mutability: "view",
