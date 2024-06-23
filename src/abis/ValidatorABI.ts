@@ -65,12 +65,7 @@ export const validatorABI = [
       {
         type: "function",
         name: "stake",
-        inputs: [
-          {
-            name: "amount",
-            type: "core::integer::u128",
-          },
-        ],
+        inputs: [],
         outputs: [
           {
             type: "core::bool",
