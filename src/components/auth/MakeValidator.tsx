@@ -10,7 +10,7 @@ const MakeValidator = () => {
     const router = useRouter()
 
     const handleGoBack = () => {
-        router.push("/")
+        router.back()
     }
     return (
         <section className="w-full min-h-screen bg-saOrange/[6%] relative flex flex-col items-start lg:p-10 md:p-4">
