@@ -1,10 +1,13 @@
+'use client'
 import Image from "next/image"
 import { MdOutlineArrowRightAlt } from "react-icons/md"
 import img from "../../../public/authorProfile.png"
 import { user1 } from "../../../public/projects"
 import { IoStarSharp } from "react-icons/io5"
+import { useRouter } from "next/navigation"
 
 const ImpactSection = () => {
+    const router = useRouter()
 
     return (
         <section className="w-full flex flex-col mt-24 gap-4 md:px-20 px-4">
@@ -14,7 +17,7 @@ const ImpactSection = () => {
                     <h3 className="text-2xl text-saBluelite font-semibold md:text-4xl">Impact Stories: Our Successes in Action</h3>
                     <p className="text-sm text-saBlue">Explore our collection of success stories that highlight the profound impact of your contributions. Each story showcases the tangible results of our funded projects in scientific research and disaster relief, illustrating how every donation helps forge a path to recovery and discovery.</p>
                 </div>
-                <button className="text-gray-200 hover:bg-saOrange rounded-md bg-saBluelite font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
+                <button onClick={() => router.push("/projects")} className="text-gray-200 hover:bg-saOrange rounded-md bg-saBluelite font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
                     View more
                     <MdOutlineArrowRightAlt className="text-xl" />
                 </button>

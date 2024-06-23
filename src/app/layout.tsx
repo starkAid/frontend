@@ -3,7 +3,8 @@ import "@/styles/globals.css"
 import { Poppins as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { StarknetProvider } from "@/provider/starknet-provider";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "sonner";
+
 
 const fontSans = FontSans({
   subsets: ["latin"],

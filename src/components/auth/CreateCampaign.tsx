@@ -27,9 +27,9 @@ const Campaign = () => {
         router.push("/")
     }
     return (
-        <section className="w-full min-h-screen bg-saOrange/[6%] relative flex flex-col items-start md:p-10">
+        <section className="w-full min-h-screen bg-saOrange/[6%] relative flex flex-col items-start lg:p-10 md:p-4">
             <Logo className='w-14 h-14' />
-            <h1 className='text-3xl font-medium text-saOrange mt-32 w-[300px]'>Let&apos;s begin your fundraising journey</h1>
+            <h1 className='lg:text-3xl md:text-xl font-medium text-saOrange mt-32 lg:w-[300px] md:w-[200px]'>Let&apos;s begin your fundraising journey</h1>
 
             <main className='absolute top-0 right-0 md:w-[70%] w-full min-h-screen z-20 md:shadow-2xl md:rounded-s-xl md:px-20 py-20 bg-white px-4 flex flex-col items-start justify-center '>
                 <form onSubmit={handleSubmit} className='w-full grid md:grid-cols-2 md:gap-6 gap-4'>

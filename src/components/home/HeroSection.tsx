@@ -7,14 +7,24 @@ import box from "../../../public/donation-box.png"
 import guage from "../../../public/gauge.png"
 import dots from "../../../public/circleElements.png"
 import { useRouter } from "next/navigation";
+import { useAccount } from "@starknet-react/core";
+import { toast } from "sonner";
 
 const HeroSection = () => {
     const partners = useMemo(() => [starknet, tokenflow, voyager, dynamic], []);
 
     const router = useRouter();
 
+    const { address: userAddress } = useAccount();
+
     const handleClick = () => {
-        router.push("/createcampaign")
+        if (userAddress) {
+            router.push("/createcampaign")
+        } else {
+            toast.error("Please connect your wallet", {
+                position: "top-right",
+            })
+        }
     }
 
     return (
@@ -30,7 +40,7 @@ const HeroSection = () => {
                         Create campaign
                         <MdOutlineArrowRightAlt className="text-xl" />
                     </button>
-                    <button className="text-gray-700 bg-gray-200 rounded-md border border-gray-300 font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
+                    <button onClick={() => router.push("/projects")} className="text-gray-700 bg-gray-200 rounded-md border border-gray-300 font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
                         Donate
                     </button>
                 </div>

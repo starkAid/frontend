@@ -3,12 +3,23 @@ import Image from "next/image"
 import panel1 from "../../../public/panel1.png"
 import panel2 from "../../../public/panel2.png"
 import { useRouter } from "next/navigation"
+import { useAccount } from "@starknet-react/core"
+import { toast } from "sonner"
 
 const Validator = () => {
     const router = useRouter();
 
+    const { address: userAddress } = useAccount();
+
     const handleClick = () => {
-        router.push("/applyasvalidator")
+        if (userAddress) {
+
+            router.push("/applyasvalidator")
+        } else {
+            toast.error("Please connect your wallet", {
+                position: "top-right",
+            })
+        }
     }
     return (
         <section className="w-full h-[200px] flex md:flex-row flex-col items-center gap-3 justify-center md:justify-between bg-saOrange md:px-20 px-4 relative overflow-hidden">
