@@ -1,12 +1,19 @@
+'use client'
 import Image from "next/image"
 import panel1 from "../../../public/panel1.png"
 import panel2 from "../../../public/panel2.png"
+import { useRouter } from "next/navigation"
 
 const Validator = () => {
+    const router = useRouter();
+
+    const handleClick = () => {
+        router.push("/applyasvalidator")
+    }
     return (
         <section className="w-full h-[200px] flex md:flex-row flex-col items-center gap-3 justify-center md:justify-between bg-saOrange md:px-20 px-4 relative overflow-hidden">
             <h1 className="text-white md:text-4xl text-2xl md:text-start text-center font-semibold">Become A Campaign Validator Now!</h1>
-            <button className="text-gray-200 hover:bg-gray-200 hover:text-saBluelite rounded shadow-xl bg-saBluelite font-medium text-sm px-8 py-3 flex items-center gap-1 capitalize">
+            <button onClick={handleClick} className="text-gray-200 hover:bg-gray-200 hover:text-saBluelite rounded shadow-xl bg-saBluelite font-medium text-sm px-8 py-3 flex items-center gap-1 capitalize">
                 Join Now
             </button>
 
