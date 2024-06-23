@@ -23,7 +23,6 @@ const TopHeader = () => {
 
     const handleApply = () => {
         if (userAddress) {
-            console.log(userAddress);
             router.push("/applyasvalidator")
         } else {
             toast.error("Please connect your wallet", {
