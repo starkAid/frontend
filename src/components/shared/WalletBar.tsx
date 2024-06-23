@@ -1,7 +1,7 @@
 "use client";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 import { useMemo } from "react";
-import { Button } from "../ui/button";
+
 
 function WalletConnected() {
   const { address } = useAccount();
@@ -13,10 +13,9 @@ function WalletConnected() {
   }, [address]);
 
   return (
-    <div>
-      <span>Connected: {shortenedAddress}</span>
-      <button onClick={() => disconnect()}>Disconnect</button>
-    </div>
+    <button onClick={() => disconnect()} className="text-saBluelite bg-saOrange rounded-md border border-saOrange hover:bg-saBluelite transition-all duration-300 hover:text-gray-200 text-sm px-5 py-2 flex items-center gap-1.5">Disconnect
+      <span className="font-medium">{shortenedAddress}</span>
+    </button>
   );
 }
 
@@ -24,17 +23,16 @@ function ConnectWallet() {
   const { connectors, connect } = useConnect();
 
   return (
-    <div>
-      <span>Choose a wallet: </span>
+    <div className="flex items-center gap-2">
       {connectors.map((connector) => {
         return (
-          <Button
+          <button
             key={connector.id}
             onClick={() => connect({ connector })}
-            className="gap-x-2 mr-2"
+            className="text-saOrange bg-white rounded-md border border-saOrange hover:bg-saOrange transition-all duration-300 hover:text-gray-200 text-sm px-6 py-2 "
           >
             {connector.id}
-          </Button>
+          </button>
         );
       })}
     </div>

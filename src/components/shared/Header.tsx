@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 import MobileNav from "./MobileNav";
 import { Navlinks } from "@/data/Nav";
+import WalletBar from "./WalletBar";
 
 
 const Header = () => {
@@ -35,13 +36,7 @@ const Header = () => {
             </div>
 
             <div className="flex items-center justify-end gap-3">
-                <button
-                    type="button"
-                    className="text-saOrange bg-white rounded-md border border-saOrange hover:bg-saOrange transition-all duration-300 hover:text-gray-200 text-sm px-6 py-2 flex items-center gap-1.5"
-                >
-                    <FaUser />
-                    Connect
-                </button>
+                <WalletBar />
 
                 <div className="md:hidden">
                     <MobileNav />
