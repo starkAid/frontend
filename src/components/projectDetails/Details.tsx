@@ -6,6 +6,10 @@ import { FaCalendar, FaCaretLeft, FaCaretRight, FaCoins } from "react-icons/fa"
 import { d1 } from "../../../public/detail"
 import Slider, { Settings } from "react-slick";
 import { useRef } from "react"
+import { Dialog, DialogContent, DialogTrigger, DialogClose, DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "../ui/dialog"
+
+
+
 const Details = () => {
     const sliderRef = useRef<Slider | null>(null);
 
@@ -132,9 +136,37 @@ const Details = () => {
                         </div>
                     </div>
 
-                    <button className="text-gray-200 hover:bg-saOrange rounded-md bg-saBluelite md:ml-6 font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
-                        Fund this project
-                    </button>
+
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <button className="text-gray-200 hover:bg-saOrange rounded-md bg-saBluelite md:ml-6 font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
+                                Fund this project
+                            </button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px] font-barlow">
+                            <DialogHeader>
+                                <DialogTitle className="text-saBluelite font-barlow text-lg">Empower Change</DialogTitle>
+                                <DialogDescription className="text-gray-700">
+                                    Fund Tomorrow Solutions Today
+                                </DialogDescription>
+                            </DialogHeader>
+                            <main className="w-full grid gap-8">
+                                <div className="relative w-full font-barlow">
+                                    <label className="text-gray-300 ml-1 mb-1">Amount</label>
+                                    <input
+                                        type="text"
+                                        name="amount" id="amount" className='w-full py-3 px-3 border border-gray-300 text-sm focus:border-saOrange outline-none rounded-lg' placeholder='Enter amount'
+                                    />
+
+                                </div>
+                            </main>
+                            <DialogFooter>
+                                <button className="text-gray-200 hover:bg-saOrange rounded-md bg-saBluelite md:ml-6 font-medium text-sm px-6 py-2 flex items-center gap-1 capitalize">
+                                    Submit
+                                </button>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
                 </div>
 
                 <p className="text-saBlue text-sm -mb-2 mt-3">Project Notes:</p>
