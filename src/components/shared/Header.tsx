@@ -3,10 +3,11 @@ import Link from "next/link"
 import Logo from "./Logo"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation";
-import { FaUser } from "react-icons/fa";
 import MobileNav from "./MobileNav";
 import { Navlinks } from "@/data/Nav";
-import WalletBar from "./WalletBar";
+import dynamic from "next/dynamic";
+const WalletBar = dynamic(() => import("./WalletBar"), { ssr: false });
+
 
 
 const Header = () => {
