@@ -1,3 +1,5 @@
+import { type Abi } from "starknet";
+
 export const progressTrackABI = [
   {
     type: "impl",
@@ -144,4 +146,4 @@ export const progressTrackABI = [
       },
     ],
   },
-];
+] as const satisfies Abi;
