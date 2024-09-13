@@ -4,7 +4,7 @@ import Logo from "../shared/Logo"
 import { useRouter } from "next/navigation"
 import { FaArrowLeftLong } from "react-icons/fa6"
 import { FaUserCircle } from "react-icons/fa"
-import { useAccount, useContract, useContractWrite } from "@starknet-react/core"
+import { useAccount, useContract } from "@starknet-react/core"
 import { registerABI } from "@/abis/RegisterABI"
 import { stringToHex } from "@/utils/Converter"
 import { toast } from "sonner"
@@ -20,7 +20,7 @@ const RegisterUser = () => {
 
     const { contract } = useContract({
         abi: registerABI,
-        address: process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS,
+        address: `0x${process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS}`,
     });
 
     // const calls = useMemo(() => {
