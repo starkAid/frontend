@@ -1,3 +1,5 @@
+import { type Abi } from "starknet";
+
 export const registerABI = [
   {
     type: "impl",
@@ -147,4 +149,4 @@ export const registerABI = [
       },
     ],
   },
-];
+] as const satisfies Abi;

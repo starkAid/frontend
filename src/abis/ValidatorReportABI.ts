@@ -1,3 +1,5 @@
+import { type Abi } from "starknet";
+
 export const validatorReportABI = [
   {
     type: "impl",
@@ -153,4 +155,4 @@ export const validatorReportABI = [
       },
     ],
   },
-];
+] as const satisfies Abi;

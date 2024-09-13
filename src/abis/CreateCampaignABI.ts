@@ -1,3 +1,5 @@
+import { type Abi } from "starknet";
+
 export const campaignABI = [
   {
     type: "impl",
@@ -494,4 +496,4 @@ export const campaignABI = [
       },
     ],
   },
-];
+] as const satisfies Abi;
