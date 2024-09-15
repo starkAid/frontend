@@ -4,7 +4,7 @@ import Logo from "../shared/Logo"
 import { useRouter } from "next/navigation"
 import { FaArrowLeftLong } from "react-icons/fa6"
 import { FaUserCircle } from "react-icons/fa"
-import { useAccount, useContract } from "@starknet-react/core"
+import { useAccount, useContract, useSendTransaction } from "@starknet-react/core"
 import { registerABI } from "@/abis/RegisterABI"
 import { stringToHex } from "@/utils/Converter"
 import { toast } from "sonner"
@@ -23,24 +23,24 @@ const RegisterUser = () => {
         address: `0x${process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS}`,
     });
 
-    // const calls = useMemo(() => {
-    //     if (!userAddress || !contract) return [];
-    //     const feltUsername = stringToHex(username);
-    //     return contract.populateTransaction["register_user"]!([username, feltUsername]);
-    // }, [contract, userAddress, username]);
+    const calls = useMemo(() => {
+        if (!userAddress || !contract) return undefined;
+        const feltUsername = stringToHex(username);
+        return [contract.populate("register_user", [username, feltUsername])];
+    }, [contract, userAddress, username]);
 
-    // const {
-    //     writeAsync,
-    //     data,
-    //     isPending,
-    // } = useContractWrite({
-    //     calls,
-    // });
+    const {
+        send,
+        data,
+        isPending,
+    } = useSendTransaction({
+        calls,
+    });
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
         if (userAddress) {
-            // writeAsync()
+            send()
         } else {
             toast.error("Please connect your wallet", {
                 position: "top-right",
