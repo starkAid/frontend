@@ -29,8 +29,8 @@ export default function RootLayout({
         fontSans.variable
       )}>
         <StarknetProvider>
-          <Toaster richColors />
           {children}
+          <Toaster richColors />
         </StarknetProvider>
       </body>
     </html>

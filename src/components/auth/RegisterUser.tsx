@@ -20,21 +20,24 @@ const RegisterUser = () => {
 
     const { contract } = useContract({
         abi: registerABI,
-        address: `0x${process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS}`,
+        address: process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS as `0x${string}`,
     });
 
-    const calls = useMemo(() => {
-        if (!userAddress || !contract) return undefined;
-        const feltUsername = stringToHex(username);
-        return [contract.populate("register_user", [username, feltUsername])];
-    }, [contract, userAddress, username]);
+    // const calls = useMemo(() => {
+    //     if (!userAddress || !contract) return [];
+    //     // const feltUsername = stringToHex(username);
+    //     return [contract.populate("register_user", [username])];
+    // }, [contract, userAddress, username]);
 
     const {
         send,
         data,
         isPending,
     } = useSendTransaction({
-        calls,
+        calls:
+            contract && userAddress
+                ? [contract.populate("register_user", [username])]
+                : undefined,
     });
 
     const handleSubmit = async (e: FormEvent) => {
