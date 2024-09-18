@@ -6,13 +6,13 @@ import { FaArrowLeftLong } from "react-icons/fa6"
 import { FaUserCircle } from "react-icons/fa"
 import { useAccount, useContract, useSendTransaction } from "@starknet-react/core"
 import { registerABI } from "@/abis/RegisterABI"
-import { stringToHex } from "@/utils/Converter"
+import { stringToFelt } from "@/utils/Converter"
 import { toast } from "sonner"
 
 
 
 const RegisterUser = () => {
-    const [username, setUsername] = useState("")
+    const [username, setUsername] = useState<string>("")
 
     const router = useRouter()
 
@@ -23,27 +23,34 @@ const RegisterUser = () => {
         address: process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS as `0x${string}`,
     });
 
-    // const calls = useMemo(() => {
-    //     if (!userAddress || !contract) return [];
-    //     // const feltUsername = stringToHex(username);
-    //     return [contract.populate("register_user", [username])];
-    // }, [contract, userAddress, username]);
+    const calls = useMemo(() => {
+        if (!contract || !userAddress || !username) return undefined;
+        const convertedUsername = stringToFelt(username);
+        return [contract.populate("register_user", [convertedUsername])];
+    }, [contract, userAddress, username]);
 
     const {
-        send,
-        data,
-        isPending,
+        sendAsync,
+        status,
+        error
     } = useSendTransaction({
-        calls:
-            contract && userAddress
-                ? [contract.populate("register_user", [username])]
-                : undefined,
+        calls
     });
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
         if (userAddress) {
-            send()
+            sendAsync()
+            if (status === "success") {
+                toast.success("User registered successfully", {
+                    position: "top-right",
+                })
+                router.push('/createcampaign')
+            } else if (status === "error") {
+                toast.error(error?.message, {
+                    position: "top-right",
+                })
+            }
         } else {
             toast.error("Please connect your wallet", {
                 position: "top-right",

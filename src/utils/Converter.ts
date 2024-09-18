@@ -1,9 +1,11 @@
-import { ethers } from "ethers";
+import { Buffer } from "buffer";
 
-export const stringToHex = (str: string) => {
-  // Convert the string to UTF-8 bytes and from UTF-8 bytes to hexadecimal
-  const utf8Bytes = ethers.toUtf8Bytes(str);
-  const hexString = ethers.hexlify(utf8Bytes);
+export function feltToString(felt: string): string {
+  const buffer = Buffer.from(felt.replace("0x", ""), "hex");
+  return buffer.toString();
+}
 
-  return hexString;
-};
+export function stringToFelt(inputString: string) {
+  const hexStr = Buffer.from(inputString, "utf-8").toString("hex");
+  return BigInt(`0x${hexStr}`);
+}
