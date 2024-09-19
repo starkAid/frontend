@@ -28,7 +28,7 @@ function ConnectWallet() {
         return (
           <button
             key={connector.id}
-            onClick={() => connect({ connector })}
+            onClick={async () => connector.available() ? connect({ connector }) : null}
             className="text-saOrange bg-white rounded-md border border-saOrange hover:bg-saOrange transition-all duration-300 hover:text-gray-200 text-sm px-6 py-2 mr-2 last:mr-0"
           >
             {connector.id}

@@ -1,18 +1,18 @@
 'use client'
-import { FormEvent, useMemo, useState } from "react"
+import { FormEvent, useEffect, useMemo, useState } from "react"
 import Logo from "../shared/Logo"
 import { useRouter } from "next/navigation"
 import { FaArrowLeftLong } from "react-icons/fa6"
 import { FaUserCircle } from "react-icons/fa"
-import { useAccount, useContract, useContractWrite } from "@starknet-react/core"
+import { useAccount, useContract, useSendTransaction } from "@starknet-react/core"
 import { registerABI } from "@/abis/RegisterABI"
-import { stringToHex } from "@/utils/Converter"
+import { stringToFelt } from "@/utils/Converter"
 import { toast } from "sonner"
 
 
 
 const RegisterUser = () => {
-    const [username, setUsername] = useState("")
+    const [username, setUsername] = useState<string>("")
 
     const router = useRouter()
 
@@ -20,33 +20,56 @@ const RegisterUser = () => {
 
     const { contract } = useContract({
         abi: registerABI,
-        address: process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS,
+        address: process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS as `0x${string}`,
     });
 
-    // const calls = useMemo(() => {
-    //     if (!userAddress || !contract) return [];
-    //     const feltUsername = stringToHex(username);
-    //     return contract.populateTransaction["register_user"]!([username, feltUsername]);
-    // }, [contract, userAddress, username]);
+    const calls = useMemo(() => {
+        if (!contract || !userAddress || !username) return undefined;
+        const convertedUsername = stringToFelt(username);
+        return [contract.populate("register_user", [convertedUsername])];
+    }, [contract, userAddress, username]);
 
-    // const {
-    //     writeAsync,
-    //     data,
-    //     isPending,
-    // } = useContractWrite({
-    //     calls,
-    // });
+    const {
+        sendAsync,
+        error,
+        isSuccess,
+        isError
+    } = useSendTransaction({
+        calls
+    });
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        if (userAddress) {
-            // writeAsync()
+        if (calls && userAddress) {
+            try {
+                await sendAsync();
+                setUsername("")
+            } catch (err) {
+                toast.error("Transaction failed", {
+                    position: "top-right",
+                });
+            }
         } else {
             toast.error("Please connect your wallet", {
                 position: "top-right",
             })
         }
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("User registered successfully", {
+                position: "top-right",
+            });
+            router.push('/createcampaign');
+        }
+
+        if (isError) {
+            toast.error(error?.message || "Transaction failed", {
+                position: "top-right",
+            });
+        }
+    }, [isSuccess, isError, router, error?.message]);
 
     const handleGoBack = () => {
         router.back()
