@@ -18,7 +18,7 @@ export function StarknetProvider({ children }: { children: ReactNode }) {
     // Hide recommended connectors if the user has any connector installed.
     includeRecommended: "onlyIfNoConnectors",
     // Randomize the order of the connectors.
-    order: "random",
+    order: "alphabetical",
   });
 
   return (
