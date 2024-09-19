@@ -1,5 +1,5 @@
 'use client'
-import { FormEvent, useMemo, useState } from "react"
+import { FormEvent, useEffect, useMemo, useState } from "react"
 import Logo from "../shared/Logo"
 import { useRouter } from "next/navigation"
 import { FaArrowLeftLong } from "react-icons/fa6"
@@ -31,25 +31,23 @@ const RegisterUser = () => {
 
     const {
         sendAsync,
-        status,
-        error
+        error,
+        isSuccess,
+        isError
     } = useSendTransaction({
         calls
     });
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
-        if (userAddress) {
-            sendAsync()
-            if (status === "success") {
-                toast.success("User registered successfully", {
+        if (calls && userAddress) {
+            try {
+                await sendAsync();
+                setUsername("")
+            } catch (err) {
+                toast.error("Transaction failed", {
                     position: "top-right",
-                })
-                router.push('/createcampaign')
-            } else if (status === "error") {
-                toast.error(error?.message, {
-                    position: "top-right",
-                })
+                });
             }
         } else {
             toast.error("Please connect your wallet", {
@@ -57,6 +55,21 @@ const RegisterUser = () => {
             })
         }
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("User registered successfully", {
+                position: "top-right",
+            });
+            router.push('/createcampaign');
+        }
+
+        if (isError) {
+            toast.error(error?.message || "Transaction failed", {
+                position: "top-right",
+            });
+        }
+    }, [isSuccess, isError, router, error?.message]);
 
     const handleGoBack = () => {
         router.back()
