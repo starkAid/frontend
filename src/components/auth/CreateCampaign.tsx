@@ -10,7 +10,7 @@ import axios from "axios";
 import { toast } from 'sonner';
 import { useAccount, useContract, useSendTransaction } from '@starknet-react/core';
 import { campaignABI } from '@/abis/CreateCampaignABI';
-import { stringToFelt } from '@/utils/Converter';
+import { dateToSeconds, stringToFelt } from '@/utils/Converter';
 
 const Campaign = () => {
     const router = useRouter()
@@ -94,6 +94,7 @@ const Campaign = () => {
         const convertedBio = stringToFelt(bio);
         const convertedDesc = stringToFelt(desc);
         const convertedImageURIs = imageURIs.map((uri) => stringToFelt(uri));
+        const convertedDeadline = dateToSeconds(deadline);
 
         return [contract.populate("create_campaign", [])];
     }, [contract, userAddress, name, title, amount, location, budget, bio, desc, deadline, imageURIs]);
@@ -108,9 +109,37 @@ const Campaign = () => {
     });
 
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
+        if (calls && userAddress) {
+            try {
+                await sendAsync();
+            } catch (err) {
+                toast.error("Transaction failed", {
+                    position: "top-right",
+                });
+            }
+        } else {
+            toast.error("Please connect your wallet", {
+                position: "top-right",
+            })
+        }
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Campaign created successfully", {
+                position: "top-right",
+            });
+            router.push('/dashboard/user');
+        }
+
+        if (isError) {
+            toast.error(error?.message || "Transaction failed", {
+                position: "top-right",
+            });
+        }
+    }, [isSuccess, isError, router, error?.message]);
 
     const handleGoBack = () => {
         router.back()
