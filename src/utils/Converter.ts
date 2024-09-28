@@ -9,3 +9,9 @@ export function stringToFelt(inputString: string) {
   const hexStr = Buffer.from(inputString, "utf-8").toString("hex");
   return BigInt(`0x${hexStr}`);
 }
+
+export function dateToSeconds(dateString: string): bigint {
+  const date = new Date(dateString);
+  const seconds = Math.floor(date.getTime() / 1000);
+  return BigInt(seconds);
+}

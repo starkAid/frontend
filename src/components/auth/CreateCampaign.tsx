@@ -1,27 +1,27 @@
 'use client'
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useCallback, useEffect, useMemo, useState } from 'react'
 import Logo from '../shared/Logo'
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useRouter } from 'next/navigation'
 import Image from 'next/image';
 import { SlPicture } from "react-icons/sl";
 import { FiEdit } from "react-icons/fi";
+import axios from "axios";
+import { toast } from 'sonner';
+import { useAccount, useContract, useSendTransaction } from '@starknet-react/core';
+import { campaignABI } from '@/abis/CreateCampaignABI';
+import { stringToFelt } from '@/utils/Converter';
 
 const Campaign = () => {
     const router = useRouter()
 
-    const [selectedImgOneFile, setSelectedImgOneFile] = useState<any>();
-    const [selectedImgTwoFile, setSelectedImgTwoFile] = useState<any>();
-    const [selectedImgThreeFile, setSelectedImgThreeFile] = useState<any>();
+    const [selectedFiles, setSelectedFiles] = useState<any[]>([null, null, null]);
+    const [imageURIs, setImageURIs] = useState<string[]>(["", "", ""]);
 
-    const handleSelectImgOneImage = ({ target }: { target: any }) => {
-        setSelectedImgOneFile(target.files[0]);
-    };
-    const handleSelectImgTwoImage = ({ target }: { target: any }) => {
-        setSelectedImgTwoFile(target.files[0]);
-    };
-    const handleSelectImgThreeImage = ({ target }: { target: any }) => {
-        setSelectedImgThreeFile(target.files[0]);
+    const handleSelectImage = (index: number) => ({ target }: { target: any }) => {
+        const newFiles = [...selectedFiles];
+        newFiles[index] = target.files[0];
+        setSelectedFiles(newFiles);
     };
 
     const [name, setName] = useState("")
@@ -33,9 +33,79 @@ const Campaign = () => {
     const [desc, setDesc] = useState("")
     const [deadline, setDeadline] = useState("")
 
-    const [imageOneURI, setImageOneURI] = useState("")
-    const [imageTwoURI, setImageTwoURI] = useState("")
-    const [imageThreeURI, setImageThreeURI] = useState("")
+    // Getting Image URI
+    const uploadImageToIPFS = useCallback(async (file: File) => {
+        try {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const response = await axios.post(
+                "https://api.pinata.cloud/pinning/pinFileToIPFS",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+                        pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_KEY,
+                    },
+                }
+            );
+
+            const fileUrl = response.data.IpfsHash;
+            toast.success("Image URI fetched successfully", { position: "top-right" });
+            return fileUrl;
+        } catch (error) {
+            console.log("Pinata API Error:", error);
+            toast.error("Error fetching image URI", { position: "top-right" });
+            return "";
+        }
+    }, []);
+
+
+    useEffect(() => {
+        const uploadImages = async () => {
+            const newURIs = await Promise.all(
+                selectedFiles.map((file, index) => file ? uploadImageToIPFS(file) : "")
+            );
+            setImageURIs(newURIs);
+        };
+
+        if (selectedFiles.some(file => file)) {
+            uploadImages();
+        }
+    }, [selectedFiles, uploadImageToIPFS]);
+
+
+    const { address: userAddress } = useAccount();
+
+    const { contract } = useContract({
+        abi: campaignABI,
+        address: process.env.NEXT_PUBLIC_CAMPAIGN_CONTRACT_ADDRESS as `0x${string}`,
+    });
+
+
+    const calls = useMemo(() => {
+        if (!contract || !userAddress || !name || !title || !amount || !location || !budget || !bio || !desc || !deadline || !imageURIs[0] || !imageURIs[1] || !imageURIs[2]) return undefined;
+
+        const convertedName = stringToFelt(name);
+        const convertedTitle = stringToFelt(title);
+        const convertedLocation = stringToFelt(location);
+        const convertedBudget = stringToFelt(budget);
+        const convertedBio = stringToFelt(bio);
+        const convertedDesc = stringToFelt(desc);
+        const convertedImageURIs = imageURIs.map((uri) => stringToFelt(uri));
+
+        return [contract.populate("create_campaign", [])];
+    }, [contract, userAddress, name, title, amount, location, budget, bio, desc, deadline, imageURIs]);
+
+    const {
+        sendAsync,
+        error,
+        isSuccess,
+        isError
+    } = useSendTransaction({
+        calls
+    });
 
 
     const handleSubmit = (e: FormEvent) => {
@@ -56,104 +126,39 @@ const Campaign = () => {
                     <h1 className='text-gray-600 '>Choose your campaign images</h1>
 
                     <div className='w-full grid md:grid-cols-3 gap-8'>
-                        {/* image 1 */}
-                        <div className="h-[120px] border border-gray-300 rounded relative ">
-                            {selectedImgOneFile ? (
-                                <Image
-                                    src={URL.createObjectURL(selectedImgOneFile)}
-                                    alt="image1"
-                                    className="w-full h-full object-cover"
-                                    width={440}
-                                    height={440}
-                                    priority
-                                    quality={100}
+                        {/* image selections */}
+                        {[0, 1, 2].map((index) => (
+                            <div key={index} className="h-[120px] border border-gray-300 rounded relative">
+                                {selectedFiles[index] ? (
+                                    <Image
+                                        src={URL.createObjectURL(selectedFiles[index])}
+                                        alt={`image${index + 1}`}
+                                        className="w-full h-full object-cover"
+                                        width={440}
+                                        height={440}
+                                        priority
+                                        quality={100}
+                                    />
+                                ) : (
+                                    <span className="relative flex justify-center items-center w-full h-full">
+                                        <SlPicture className="relative text-6xl inline-flex rounded text-gray-300" />
+                                    </span>
+                                )}
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    hidden
+                                    id={`selectImgFile${index}`}
+                                    onChange={handleSelectImage(index)}
                                 />
-                            ) : (
-                                <span className="relative flex justify-center items-center w-full h-full">
-                                    <SlPicture className="relative text-6xl inline-flex rounded text-gray-300" />
-                                </span>
-                            )}
-                            <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                className="hidden"
-                                id="selectImgOneFile"
-                                onChange={handleSelectImgOneImage}
-                            />
-                            <label
-                                htmlFor="selectImgOneFile"
-                                className="absolute -right-1 p-1 rounded -bottom-1 cursor-pointer bg-saBluelite border-[0.5px] border-gray-200 text-gray-200"
-                            >
-                                <FiEdit />
-                            </label>
-                        </div>
-
-                        {/* image 2 */}
-                        <div className="h-[120px] border border-gray-300 rounded relative ">
-                            {selectedImgTwoFile ? (
-                                <Image
-                                    src={URL.createObjectURL(selectedImgTwoFile)}
-                                    alt="image2"
-                                    className="w-full h-full object-cover"
-                                    width={440}
-                                    height={440}
-                                    priority
-                                    quality={100}
-                                />
-                            ) : (
-                                <span className="relative flex justify-center items-center w-full h-full">
-                                    <SlPicture className="relative text-6xl inline-flex rounded text-gray-300" />
-                                </span>
-                            )}
-                            <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                className="hidden"
-                                id="selectImgTwoFile"
-                                onChange={handleSelectImgTwoImage}
-                            />
-                            <label
-                                htmlFor="selectImgTwoFile"
-                                className="absolute -right-1 p-1 rounded -bottom-1 cursor-pointer bg-saBluelite border-[0.5px] border-gray-200 text-gray-200"
-                            >
-                                <FiEdit />
-                            </label>
-                        </div>
-
-                        {/* image 3 */}
-                        <div className="h-[120px] border border-gray-300 rounded relative ">
-                            {selectedImgThreeFile ? (
-                                <Image
-                                    src={URL.createObjectURL(selectedImgThreeFile)}
-                                    alt="image3"
-                                    className="w-full h-full object-cover"
-                                    width={440}
-                                    height={440}
-                                    priority
-                                    quality={100}
-                                />
-                            ) : (
-                                <span className="relative flex justify-center items-center w-full h-full">
-                                    <SlPicture className="relative text-6xl inline-flex rounded text-gray-300" />
-                                </span>
-                            )}
-                            <input
-                                type="file"
-                                accept="image/*"
-                                hidden
-                                className="hidden"
-                                id="selectImgThreeFile"
-                                onChange={handleSelectImgThreeImage}
-                            />
-                            <label
-                                htmlFor="selectImgThreeFile"
-                                className="absolute -right-1 p-1 rounded -bottom-1 cursor-pointer bg-saBluelite border-[0.5px] border-gray-200 text-gray-200"
-                            >
-                                <FiEdit />
-                            </label>
-                        </div>
+                                <label
+                                    htmlFor={`selectImgFile${index}`}
+                                    className="absolute -right-1 p-1 rounded -bottom-1 cursor-pointer bg-saBluelite border-[0.5px] border-gray-200 text-gray-200"
+                                >
+                                    <FiEdit />
+                                </label>
+                            </div>
+                        ))}
                     </div>
                 </article>
 
@@ -201,20 +206,23 @@ const Campaign = () => {
                     </main>
 
                     <main className='w-full grid md:grid-cols-3 md:gap-6 gap-4 md:mt-6 mt-4'>
-                        <div className='w-full flex flex-col'>
-                            <label htmlFor="imageURI" className='text-sm text-gray-600 ml-1'>First Image URI</label>
-                            <input type="text" value={imageOneURI} name="imageURI" id="imageURI" className='w-full py-3 px-3 border text-sm border-gray-300 focus:border-saOrange outline-none rounded-lg' placeholder='Image URI' readOnly required />
-                        </div>
-
-                        <div className='w-full flex flex-col'>
-                            <label htmlFor="imageURI" className='text-sm text-gray-600 ml-1'>Second Image URI</label>
-                            <input type="text" value={imageTwoURI} name="imageURI" id="imageURI" className='w-full py-3 px-3 border text-sm border-gray-300 focus:border-saOrange outline-none rounded-lg' placeholder='Image URI' readOnly required />
-                        </div>
-
-                        <div className='w-full flex flex-col'>
-                            <label htmlFor="imageURI" className='text-sm text-gray-600 ml-1'>Third Image URI</label>
-                            <input type="text" value={imageThreeURI} name="imageURI" id="imageURI" className='w-full py-3 px-3 border text-sm border-gray-300 focus:border-saOrange outline-none rounded-lg' placeholder='Image URI' readOnly required />
-                        </div>
+                        {imageURIs.map((uri, index) => (
+                            <div key={index} className='w-full flex flex-col'>
+                                <label htmlFor={`imageURI${index}`} className='text-sm text-gray-600 ml-1'>
+                                    {`Image URI ${index + 1}`}
+                                </label>
+                                <input
+                                    type="text"
+                                    value={uri}
+                                    name={`imageURI${index}`}
+                                    id={`imageURI${index}`}
+                                    className='w-full py-3 px-3 border text-sm border-gray-300 focus:border-saOrange outline-none rounded-lg'
+                                    placeholder='Image URI'
+                                    readOnly
+                                    required
+                                />
+                            </div>
+                        ))}
 
                         <div className='w-full flex justify-center md:col-span-3 mt-4'>
                             <button type='submit' className="text-gray-200 hover:bg-saOrange hover:text-saBluelite rounded shadow-xl bg-saBluelite font-medium text-sm px-8 py-3 capitalize">
