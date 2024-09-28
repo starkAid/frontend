@@ -33,6 +33,37 @@ const Campaign = () => {
     const [desc, setDesc] = useState("")
     const [deadline, setDeadline] = useState("")
 
+
+    // Text upload to Pinata
+    const uploadTextToIPFS = useCallback(async (text: string) => {
+        try {
+            const formData = new FormData();
+            const blob = new Blob([text], { type: 'text/plain' });
+            formData.append("file", blob, "text.txt");
+
+            const response = await axios.post(
+                "https://api.pinata.cloud/pinning/pinFileToIPFS",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+                        pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_KEY,
+                    },
+                }
+            );
+
+            const fileUrl = response.data.IpfsHash;
+            toast.success("Text uploaded successfully", { position: "top-right" });
+            return fileUrl;
+        } catch (error) {
+            console.log("Pinata API Error:", error);
+            toast.error("Error uploading text", { position: "top-right" });
+            return "";
+        }
+    }, []);
+
+
     // Getting Image URI
     const uploadImageToIPFS = useCallback(async (file: File) => {
         try {
