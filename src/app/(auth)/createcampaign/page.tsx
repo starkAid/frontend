@@ -3,7 +3,7 @@
 import Campaign from "@/components/auth/CreateCampaign";
 import { registerABI } from "@/abis/RegisterABI";
 import ProgressLoader from "@/components/shared/ProgressLoader";
-import { useAccount, useReadContract } from "@starknet-react/core";
+import { useAccount, useConnect, useReadContract } from "@starknet-react/core";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -11,7 +11,9 @@ import { toast } from "sonner";
 export default function CreateCampaign() {
     const router = useRouter()
 
-    const { address: userAddress } = useAccount();
+    const { connectAsync, connectors } = useConnect({});
+
+    const { address: userAddress, status: userStatus } = useAccount();
 
     const { data, isError, status, error } = useReadContract({
         abi: registerABI,
@@ -19,6 +21,7 @@ export default function CreateCampaign() {
         address: process.env.NEXT_PUBLIC_AUTH_CONTRACT_ADDRESS as `0x${string}`,
         args: [userAddress as `0x${string}`],
         watch: false,
+        enabled: !!userAddress
     });
 
 
@@ -33,6 +36,15 @@ export default function CreateCampaign() {
             });
         }
     }, [data, status, router, isError, error?.message]);
+
+
+    useEffect(() => {
+        if (userStatus === "disconnected") {
+            connectAsync({
+                connector: connectors[0],
+            });
+        }
+    }, [userStatus, connectAsync, connectors]);
 
     return (
         <main className="w-full">
