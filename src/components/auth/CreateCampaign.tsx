@@ -33,6 +33,8 @@ const Campaign = () => {
     const [desc, setDesc] = useState("")
     const [deadline, setDeadline] = useState("")
 
+    const [calls, setCalls] = useState<any>(undefined);
+
 
     // Text upload to Pinata
     const uploadTextToIPFS = useCallback(async (text: string) => {
@@ -115,20 +117,48 @@ const Campaign = () => {
     });
 
 
-    const calls = useMemo(() => {
-        if (!contract || !userAddress || !name || !title || !amount || !location || !budget || !bio || !desc || !deadline || !imageURIs[0] || !imageURIs[1] || !imageURIs[2]) return undefined;
+    useEffect(() => {
+        const prepareCalls = async () => {
+            if (!contract || !userAddress || !name || !title || !amount || !location || !budget || !bio || !desc || !deadline || !imageURIs[0] || !imageURIs[1] || !imageURIs[2]) return;
 
-        const convertedName = stringToFelt(name);
-        const convertedTitle = stringToFelt(title);
-        const convertedLocation = stringToFelt(location);
-        const convertedBudget = stringToFelt(budget);
-        const convertedBio = stringToFelt(bio);
-        const convertedDesc = stringToFelt(desc);
-        const convertedImageURIs = imageURIs.map((uri) => stringToFelt(uri));
-        const convertedDeadline = dateToSeconds(deadline);
+            // Upload the text to IPFS and get CIDs
+            const [budgetCID, bioCID, descCID] = await Promise.all([
+                uploadTextToIPFS(budget),
+                uploadTextToIPFS(bio),
+                uploadTextToIPFS(desc),
+            ]);
 
-        return [contract.populate("create_campaign", [])];
-    }, [contract, userAddress, name, title, amount, location, budget, bio, desc, deadline, imageURIs]);
+            // Convert to Felt
+            const convertedName = stringToFelt(name);
+            const convertedTitle = stringToFelt(title);
+            const convertedLocation = stringToFelt(location);
+            const convertedBudget = stringToFelt(budgetCID);
+            const convertedBio = stringToFelt(bioCID);
+            const convertedDesc = stringToFelt(descCID);
+            const convertedImageURIs = imageURIs.map((uri) => stringToFelt(uri));
+            //convert to seconds
+            const convertedDeadline = dateToSeconds(deadline);
+
+            // Set the calls
+            setCalls([contract.populate("create_campaign", [
+                convertedName,
+                convertedTitle,
+                convertedBio,
+                convertedDesc,
+                convertedBudget,
+                convertedImageURIs[0],
+                convertedImageURIs[1],
+                convertedImageURIs[2],
+                amount,
+                convertedLocation,
+                convertedDeadline,
+            ])]);
+        };
+
+        prepareCalls();
+
+    }, [contract, userAddress, name, title, amount, location, budget, bio, desc, deadline, imageURIs, uploadTextToIPFS]);
+
 
     const {
         sendAsync,
