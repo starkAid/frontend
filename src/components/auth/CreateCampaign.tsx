@@ -8,9 +8,9 @@ import { SlPicture } from "react-icons/sl";
 import { FiEdit } from "react-icons/fi";
 import axios from "axios";
 import { toast } from 'sonner';
-import { useAccount, useContract, useSendTransaction } from '@starknet-react/core';
+import { useAccount, useConnect, useContract, useSendTransaction } from '@starknet-react/core';
 import { campaignABI } from '@/abis/CreateCampaignABI';
-import { dateToSeconds, stringToFelt } from '@/utils/Converter';
+import { base58CidToBase16Felt, dateToSeconds, stringToFelt } from '@/utils/Converter';
 
 const Campaign = () => {
     const router = useRouter()
@@ -58,9 +58,9 @@ const Campaign = () => {
             const fileUrl = response.data.IpfsHash;
             toast.success("Text uploaded successfully", { position: "top-right" });
             return fileUrl;
-        } catch (error) {
-            console.log("Pinata API Error:", error);
-            toast.error("Error uploading text", { position: "top-right" });
+        } catch (error: any) {
+            const errorMessage = error.response?.data?.message || "Error uploading text to IPFS";
+            toast.error(errorMessage, { position: "top-right" });
             return "";
         }
     }, []);
@@ -121,6 +121,7 @@ const Campaign = () => {
         const prepareCalls = async () => {
             if (!contract || !userAddress || !name || !title || !amount || !location || !budget || !bio || !desc || !deadline || !imageURIs[0] || !imageURIs[1] || !imageURIs[2]) return;
 
+
             // Upload the text to IPFS and get CIDs
             const [budgetCID, bioCID, descCID] = await Promise.all([
                 uploadTextToIPFS(budget),
@@ -132,12 +133,15 @@ const Campaign = () => {
             const convertedName = stringToFelt(name);
             const convertedTitle = stringToFelt(title);
             const convertedLocation = stringToFelt(location);
-            const convertedBudget = stringToFelt(budgetCID);
-            const convertedBio = stringToFelt(bioCID);
-            const convertedDesc = stringToFelt(descCID);
-            const convertedImageURIs = imageURIs.map((uri) => stringToFelt(uri));
+
+            // Convert CIDs to Base36
+            const convertedBudget = base58CidToBase16Felt(budgetCID);
+            const convertedBio = base58CidToBase16Felt(bioCID);
+            const convertedDesc = base58CidToBase16Felt(descCID);
+            const convertedImageURIs = imageURIs.map((uri) => base58CidToBase16Felt(uri));
+
             //convert to seconds
-            const convertedDeadline = dateToSeconds(deadline);
+            const convertedDeadline = dateToSeconds(deadline) || 0;
 
             // Set the calls
             setCalls([contract.populate("create_campaign", [
@@ -169,9 +173,9 @@ const Campaign = () => {
         calls
     });
 
-
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
+
         if (calls && userAddress) {
             try {
                 await sendAsync();
@@ -180,6 +184,10 @@ const Campaign = () => {
                     position: "top-right",
                 });
             }
+        } else if (calls == undefined) {
+            toast.error("Some data is missing", {
+                position: "top-right",
+            })
         } else {
             toast.error("Please connect your wallet", {
                 position: "top-right",
