@@ -1,4 +1,6 @@
 import { Buffer } from "buffer";
+import { CID } from "multiformats/cid";
+import bs58 from "bs58";
 
 export function feltToString(felt: string): string {
   const buffer = Buffer.from(felt.replace("0x", ""), "hex");

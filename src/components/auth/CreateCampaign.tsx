@@ -143,9 +143,9 @@ const Campaign = () => {
             setCalls([contract.populate("create_campaign", [
                 convertedName,
                 convertedTitle,
-                convertedBio,
-                convertedDesc,
-                convertedBudget,
+                bioCID,
+                descCID,
+                budgetCID,
                 convertedImageURIs[0],
                 convertedImageURIs[1],
                 convertedImageURIs[2],
