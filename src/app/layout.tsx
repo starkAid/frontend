@@ -4,6 +4,7 @@ import { Poppins as FontSans } from "next/font/google"
 import { cn } from "@/lib/utils"
 import { StarknetProvider } from "@/provider/starknet-provider";
 import { Toaster } from "sonner";
+import { getMetadata } from "@/utils/getMetadata";
 
 
 const fontSans = FontSans({
@@ -12,10 +13,10 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-export const metadata: Metadata = {
+export const metadata = getMetadata({
   title: "StarkAid",
   description: "A decentralized crowdfunding application on StarkNet tailored specifically for disaster relief and scientific research.",
-};
+});
 
 export default function RootLayout({
   children,

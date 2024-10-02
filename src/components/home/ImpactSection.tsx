@@ -30,7 +30,7 @@ const ImpactSection = () => {
                 <div className="flex flex-col gap-4">
                     <h2 className="text-2xl font-semibold text-saBluelite">Revolutionizing Blockchain: Breakthroughs at Web3 Research Lab</h2>
                     <p className="text-sm text-saBlue">In a landmark project funded through our platform, the Web3 Research Lab has achieved groundbreaking advancements in blockchain scalability and security. Their innovative approach to decentralized protocols has not only enhanced transaction efficiency but also significantly reduced costs, setting new standards in the industry. This success story demonstrates the power of targeted funding, enabling researchers to push the boundaries of technology and pave the way for a more robust and accessible digital future.</p>
-                    <h1 className="md:text-5xl text-3xl font-semibold text-saBluelite">$ 24,553,852.24</h1>
+                    <h1 className="md:text-5xl text-3xl font-semibold text-saBluelite">$ 21,553.24</h1>
                     <small className="text-saBlue text-sm">Total Funded</small>
 
                     <div className="flex items-center gap-3 mt-2">

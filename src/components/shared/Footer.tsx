@@ -1,5 +1,5 @@
 import { Company, Navlinks, Resources } from "@/data/Nav"
-import logo from "../../../public/logo/logowhite.png"
+import logo from "../../../public/logo/logo.png"
 import Link from "next/link"
 import Image from "next/image"
 import { FaFacebookF, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa"
