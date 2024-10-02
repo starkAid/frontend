@@ -47,7 +47,7 @@ const TopHeader = () => {
             </div>
             <Link href={`/`} className="text-saBluelite lg:text-sm text-xs hover:underline flex items-center gap-1">
                 <IoIosMail className="text-lg" />
-                support@starkaid.com
+                starkaid2024@gmail.com
             </Link>
         </div>
     )

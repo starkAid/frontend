@@ -28,7 +28,7 @@ const Testimonial15 = () => {
                         <div
                             className="relative grid max-w-lg grid-cols-1 gap-6 mx-auto md:max-w-none lg:gap-10 md:grid-cols-3">
                             <div className="flex flex-col overflow-hidden shadow-xl">
-                            <div className="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
+                                <div className="flex flex-col justify-between flex-1 p-6 bg-white lg:py-8 lg:px-7">
                                     <div className="flex-1">
                                         <div className="flex items-center">
                                             <svg className="w-5 h-5 text-[#FDB241]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -59,15 +59,15 @@ const Testimonial15 = () => {
                                         </div>
 
                                         <blockquote className="flex-1 mt-8">
-                                            <p className="text-lg leading-relaxed text-gray-900 font-pj">“You made it so simple. My new site is so much faster and easier to work with than my old site. I just choose the page, make the change.”</p>
+                                            <p className="text-lg leading-relaxed text-gray-900 font-pj">“StarkAid has transformed our fundraising efforts. The blockchain transparency reassures our donors, and we have secured crucial support for our scientific research.”</p>
                                         </blockquote>
                                     </div>
 
                                     <div className="flex items-center mt-8">
                                         <img className="flex-shrink-0 object-cover rounded-full w-11 h-11" src="https://cdn.rareblocks.xyz/collection/clarity/images/testimonial/4/avatar-male-1.png" alt="" />
                                         <div className="ml-4">
-                                            <p className="text-base font-bold text-gray-900 font-pj">Leslie Alexander</p>
-                                            <p className="mt-0.5 text-sm font-pj text-gray-600">Freelance React Developer</p>
+                                            <p className="text-base font-bold text-gray-900 font-pj">Dr. Sarah Hughes</p>
+                                            <p className="mt-0.5 text-sm font-pj text-gray-600">BioFutures Lab</p>
                                         </div>
                                     </div>
                                 </div>
@@ -105,15 +105,15 @@ const Testimonial15 = () => {
                                         </div>
 
                                         <blockquote className="flex-1 mt-8">
-                                            <p className="text-lg leading-relaxed text-gray-900 font-pj">“Simply the best. Better than all the rest. I’d recommend this product to beginners and advanced users.”</p>
+                                            <p className="text-lg leading-relaxed text-gray-900 font-pj">“In the midst of disaster, StarkAid helped us mobilize funds swiftly and securely. It’s a lifesaving platform for disaster relief.”</p>
                                         </blockquote>
                                     </div>
 
                                     <div className="flex items-center mt-8">
                                         <img className="flex-shrink-0 object-cover rounded-full w-11 h-11" src="https://cdn.rareblocks.xyz/collection/clarity/images/testimonial/4/avatar-male-2.png" alt="" />
                                         <div className="ml-4">
-                                            <p className="text-base font-bold text-gray-900 font-pj">Jacob Jones</p>
-                                            <p className="mt-0.5 text-sm font-pj text-gray-600">Digital Marketer</p>
+                                            <p className="text-base font-bold text-gray-900 font-pj">Ahmed Musa</p>
+                                            <p className="mt-0.5 text-sm font-pj text-gray-600">FloodAid Nigeria</p>
                                         </div>
                                     </div>
                                 </div>
@@ -151,15 +151,15 @@ const Testimonial15 = () => {
                                         </div>
 
                                         <blockquote className="flex-1 mt-8">
-                                            <p className="text-lg leading-relaxed text-gray-900 font-pj">“I cannot believe that I have got a brand new landing page after getting Omega. It was super easy to edit and publish.”</p>
+                                            <p className="text-lg leading-relaxed text-gray-900 font-pj">“StarkAid’s transparency has boosted donor trust, allowing us to raise more for global causes. It’s a game-changer for NGOs.”</p>
                                         </blockquote>
                                     </div>
 
                                     <div className="flex items-center mt-8">
                                         <img className="flex-shrink-0 object-cover rounded-full w-11 h-11" src="https://cdn.rareblocks.xyz/collection/clarity/images/testimonial/4/avatar-female.png" alt="" />
                                         <div className="ml-4">
-                                            <p className="text-base font-bold text-gray-900 font-pj">Jenny Wilson</p>
-                                            <p className="mt-0.5 text-sm font-pj text-gray-600">Graphic Designer</p>
+                                            <p className="text-base font-bold text-gray-900 font-pj">Maria Gonzalez</p>
+                                            <p className="mt-0.5 text-sm font-pj text-gray-600">Global Relief Network</p>
                                         </div>
                                     </div>
                                 </div>

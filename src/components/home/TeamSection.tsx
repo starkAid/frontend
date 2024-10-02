@@ -1,13 +1,13 @@
 import Image from "next/image"
-import team1 from "../../../public/team/1.png"
-import team2 from "../../../public/team/2.png"
-import team3 from "../../../public/team/3.png"
-import team4 from "../../../public/team/4.png"
+import team1 from "../../../public/team/team1.jpeg"
+import team2 from "../../../public/team/team2.jpeg"
+import team3 from "../../../public/team/team3.jpeg"
+import team4 from "../../../public/team/team4.jpeg"
 import { useMemo } from "react"
 
 const TeamSection = () => {
 
-    const images = useMemo(() => [team1, team2, team3, team4], []);
+    const images = useMemo(() => [team1, team4, team2, team3], []);
 
     return (
         <section className="w-full md:px-20 px-4 flex flex-col items-center md:gap-6 gap-4">
